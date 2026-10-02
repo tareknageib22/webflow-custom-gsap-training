@@ -1,5 +1,5 @@
 // const box = document.querySelector("#box");
-const circleWrapper = document.querySelector(".circle-wrapper");
+const circleWrapper = document.querySelector(".gsap-test");
 
 
 Draggable.create({circleWrapper},{

@@ -1,8 +1,8 @@
-const circleWrapper = document.querySelector(".gsap-test");
+const testBox = document.querySelector(".gsap-test");
 
-Draggable.create(circleWrapper, {
+Draggable.create(testBox, {
   type: "x,y",
   inertia: true,
 });
 
-console.log("hi this is the circle wrapper:", circleWrapper);
+console.log("hi this is the test box:", testBox);

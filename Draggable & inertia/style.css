@@ -1,0 +1,113 @@
+/* =========================
+   BASIC PAGE
+========================= */
+
+body {
+  margin: 0;
+  min-height: 100vh;
+
+  display: grid;
+  place-items: center;
+
+  background: #cdcdcd;
+
+  font-family: Arial, sans-serif;
+}
+
+
+/* =========================
+   DEMO WRAPPER
+========================= */
+
+.box-wrapper {
+  width: 600px;
+}
+
+
+/* =========================
+   FLIP CONTAINER
+========================= */
+.container {
+
+width:600px;
+  height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 20px;
+  border: 2px solid #333;
+  padding: 20px;
+  background: #fff;
+}
+
+.box {
+  width: 100px;
+  height: 100px;
+  background: #333;
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
+  margin-bottom: 30px;
+  border-radius: 20px;
+}
+
+
+/* =========================
+   ROWS — HORIZONTAL STATE
+========================= */
+
+.row {
+  width: 33.333%;
+  height: 100%;
+
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: white;
+
+  font-size: 30px;
+  font-weight: bold;
+}
+
+
+/* =========================
+   VERTICAL STATE
+========================= */
+
+.box.is-large {
+  width: 200px;
+  height: 350px;
+
+  flex-direction: column;
+
+  border-radius: 40px;
+}
+
+
+/* =========================
+   ROWS — VERTICAL STATE
+========================= */
+
+.box.is-large .row {
+  width: 100%;
+  height: 33.333%;
+}
+
+
+/* =========================
+   BUTTON
+========================= */
+
+button {
+  padding: 12px 24px;
+
+  border: 0;
+  border-radius: 8px;
+
+  cursor: pointer;
+
+  font-size: 16px;
+}

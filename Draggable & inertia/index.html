@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>
+    GSAP — Webflow Before After
+  </title>
+
+
+  <style>
+
+    * {
+      box-sizing: border-box;
+    }
+
+
+    body {
+
+      margin: 0;
+
+      min-height: 100vh;
+
+      display: grid;
+
+      place-items: center;
+
+      background: #111;
+
+      color: white;
+
+      font-family:
+        Arial,
+        sans-serif;
+
+    }
+
+
+    .wrapper {
+
+      width:
+        min(900px, 90vw);
+
+    }
+
+
+    h1 {
+
+      margin-bottom: 12px;
+
+    }
+
+
+    p {
+
+      margin-bottom: 35px;
+
+      color: #888;
+
+    }
+
+
+    /* =========================
+       BEFORE / AFTER
+    ========================= */
+
+    .compare {
+
+      position: relative;
+
+      width: 100%;
+
+      aspect-ratio: 16 / 9;
+
+      overflow: hidden;
+
+      border-radius: 24px;
+
+      background: #222;
+
+      user-select: none;
+
+    }
+
+
+    /* =========================
+       BEFORE IMAGE
+    ========================= */
+
+    .compare-before {
+
+      position: absolute;
+
+      inset: 0;
+
+      background:
+
+        linear-gradient(
+          135deg,
+          #222,
+          #555
+        );
+
+      display: grid;
+
+      place-items: center;
+
+      font-size: 40px;
+
+      color: #aaa;
+
+    }
+
+
+    /* =========================
+       AFTER IMAGE
+    ========================= */
+
+    .compare-after {
+
+      position: absolute;
+
+      inset: 0;
+
+      width: 50%;
+
+      overflow: hidden;
+
+      background:
+
+        linear-gradient(
+          135deg,
+          #eee,
+          #888
+        );
+
+      display: grid;
+
+      place-items: center;
+
+      font-size: 40px;
+
+      color: #111;
+
+    }
+
+
+    /*
+      This inner element keeps
+      the AFTER content the same
+      size as the full container.
+    */
+
+    .compare-after-content {
+
+      position: absolute;
+
+      inset: 0;
+
+      width: 100vw;
+
+      max-width: 900px;
+
+      display: grid;
+
+      place-items: center;
+
+    }
+
+
+    /* =========================
+       HANDLE
+    ========================= */
+
+    .compare-handle {
+
+      position: absolute;
+
+      top: 0;
+
+      left: 50%;
+
+      width: 4px;
+
+      height: 100%;
+
+      transform:
+        translateX(-50%);
+
+      background: white;
+
+      cursor: ew-resize;
+
+      z-index: 10;
+
+    }
+
+
+    .compare-handle::before {
+
+      content: "↔";
+
+      position: absolute;
+
+      top: 50%;
+
+      left: 50%;
+
+      transform:
+        translate(-50%, -50%);
+
+      width: 54px;
+
+      height: 54px;
+
+      display: grid;
+
+      place-items: center;
+
+      border-radius: 50%;
+
+      background: white;
+
+      color: #111;
+
+      font-size: 20px;
+
+    }
+
+
+    .label {
+
+      position: absolute;
+
+      top: 20px;
+
+      padding: 8px 12px;
+
+      border-radius: 999px;
+
+      background: rgba(0,0,0,.5);
+
+      font-size: 12px;
+
+      z-index: 5;
+
+    }
+
+
+    .label.before {
+
+      left: 20px;
+
+    }
+
+
+    .label.after {
+
+      right: 20px;
+
+      color: #111;
+
+      background: rgba(255,255,255,.7);
+
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+
+  <main class="wrapper">
+
+    <h1>
+      Before / After
+    </h1>
+
+    <p>
+      Drag the handle.
+      This is a common interactive Webflow pattern.
+    </p>
+
+
+    <div
+      class="compare"
+      id="compare"
+    >
+
+
+      <!-- =========================
+           BEFORE
+      ========================= -->
+
+      <div class="compare-before">
+
+        BEFORE
+
+      </div>
+
+
+      <!-- =========================
+           AFTER
+      ========================= -->
+
+      <div
+        class="compare-after"
+        id="compareAfter"
+      >
+
+        <div class="compare-after-content">
+
+          AFTER
+
+        </div>
+
+      </div>
+
+
+      <!-- =========================
+           HANDLE
+      ========================= -->
+
+      <div
+        class="compare-handle"
+        id="compareHandle"
+      ></div>
+
+
+      <div class="label before">
+        BEFORE
+      </div>
+
+
+      <div class="label after">
+        AFTER
+      </div>
+
+
+    </div>
+
+
+  </main>
+
+
+  <!-- =========================
+       GSAP
+  ========================= -->
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
+
+
+  <!-- =========================
+       DRAGGABLE
+  ========================= -->
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/Draggable.min.js"></script>
+
+
+  <script>
+
+gsap.registerPlugin(
+  Draggable
+);
+
+const compare =
+  document.querySelector(
+    "#compare"
+  );
+
+const compareAfter =
+  document.querySelector(
+    "#compareAfter"
+  );
+
+const compareHandle =
+  document.querySelector(
+    "#compareHandle"
+  );
+
+Draggable.create(
+  compareHandle,
+  {
+    type: "x",
+    bounds: compare,
+    edgeResistance: 1,
+
+    onDrag: function() {
+      const rect =
+        compare.getBoundingClientRect();
+
+      const handleRect =
+        this.target.getBoundingClientRect();
+
+      const progress =
+        gsap.utils.clamp(
+          0,
+          1,
+          (
+            handleRect.left +
+            handleRect.width / 2 -
+            rect.left
+          ) / rect.width
+        );
+
+      gsap.set(
+        compareAfter,
+        {
+          width: (progress * 100) + "%"
+        }
+      );
+    }
+  }
+);
+
+  </script>
+
+
+</body>
+
+</html>

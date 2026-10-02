@@ -5,3 +5,5 @@ Draggable.create(box,{
   type:'x,y',
   inertia:true,
 })
+
+console.log(box)
